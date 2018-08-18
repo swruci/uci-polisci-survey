@@ -22,5 +22,5 @@ test:
 production:
   <<: *default
   database: uci_survey_production
-  username: postgres
-  password: 61319203cxy
+  username:
+  password:
