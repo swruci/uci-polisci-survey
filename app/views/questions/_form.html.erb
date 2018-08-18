@@ -11,9 +11,9 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field" id="questionTypeField">
     <%= form.label :q_type %> <br><br>
-    <%= form.select :q_type, ['multiple_choice', 'free_response','game'] %>
+    <%= form.select :q_type, Question.types.keys %>
   </div> <br>
 
   <div class="field">
@@ -30,7 +30,124 @@
     <% end %> -->
   </div> <br>
 
+  <div class="field" id="settingsField">
+      <div id="options"></div>
+      <button type="button" id="addButton" style="margin-bottom: 10px">Add Option</button>
+  </div>
+
+  <div class="hidden" id="realSettingsField">
+    <%= form.label :settings %> <br>
+    <%= form.text_area :settings %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
+
 <% end %>
+
+<script type="text/javascript">
+  var $ = function(type, params) {
+    var el = document.createElement(type)
+    for (var key in params) {
+      el[key] = params[key];
+    }
+    return el;
+  }
+
+  // automatically hide/show the settings field
+  var settingsField = document.querySelector('#settingsField');
+  var qTypeSelectField = document.querySelector("#questionTypeField select");
+  qTypeSelectField.onchange = function(){
+    if (qTypeSelectField.value === 'multiple_choice') {
+      settingsField.classList.remove('hidden');
+    } else {
+      if (!settingsField.classList.contains('hidden')) {
+        settingsField.classList.add('hidden');
+      }
+    }
+  }
+
+  // initially decide if we should display Settings block
+  qTypeSelectField.onchange();
+
+// Decode HTML entities, e.g.:
+// &quot; => "
+// &apos; => '
+  var unescape = function(str) {
+    var el = $('textarea');
+    el.innerHTML = str;
+    return el.textContent;
+  }
+
+  var rubyObjToJson = function(str) {
+    return str.replace(/=>/g, ':');
+  }
+
+  //
+  var optionsField = document.querySelector('#options');
+  var options = JSON.parse(rubyObjToJson(unescape("<%= question.settings %>")) || "{}");
+  var renderOptions = function(options) {
+    optionsField.innerHTML = '';
+    // options= {a:1, b:1}
+    // Object.entries(options) => [[a,1], [b,1]]
+    Object.entries(options).forEach(function(entry) {
+      var key = entry[0];
+      var val = entry[1];
+      var keyEl = $('input', { type:'text', value: key});
+      var valEl = $('input', { type:'text', value: val});
+      var wrapper1 = $('div');
+      wrapper1.appendChild(document.createTextNode('Question Label '));
+      wrapper1.appendChild(keyEl);
+      var wrapper2 = $('div', { style: 'margin-bottom: 5px' });
+      wrapper2.appendChild(document.createTextNode('Question Value '));
+      wrapper2.appendChild(valEl);
+      var wrapper = $('div');
+      wrapper.appendChild(wrapper1);
+      wrapper.appendChild(wrapper2);
+      var removeButton = $('button', { style: 'margin-bottom: 5px', onclick: (function() {
+        return function() {
+          delete options[key];
+          renderOptions(options);
+        };
+      })()});
+      removeButton.appendChild(document.createTextNode('Remove'));
+      wrapper.appendChild(removeButton);
+      optionsField.appendChild(wrapper);
+    })
+  };
+  renderOptions(options);
+
+  //
+  // var buttons = [$('button'), $('button'), $('button')];
+  // buttons.forEach(btn => {
+  //   document.body.appendChild(btn);
+  // });
+  // for (var i = 0; i < buttons.length; i++) {
+  //   buttons[i].onclick = function(i) {
+  //     return function() {
+  //       alert(i);
+  //     }
+  //   }()
+  // }
+  //
+
+  document.querySelector('#addButton').onclick = function(e) {
+    var idx = 1;
+    while (options["Option " + idx]) idx++;
+    options["Option " + idx] = "Value";
+    renderOptions(options);
+  }
+
+  document.querySelector('form').onsubmit = function(e) {
+    var settingsObj = {};
+    Array.from(optionsField.children).forEach(function(div) {
+      var key = div.children[0].children[0].value;
+      var val = div.children[1].children[0].value;
+      settingsObj[key] = val;
+    })
+    document.querySelector('#realSettingsField textarea').value =
+      JSON.stringify(settingsObj);
+    return true;
+  }
+</script>

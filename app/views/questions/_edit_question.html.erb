@@ -1,6 +1,7 @@
 <tr>
   <td><%= question.q_type %></td>
   <td><%= question.description %></td>
+  <td><%= question.settings %></td>
   <td><%= question.survey.id.to_s + '.' + question.survey.name %></td>
   <td><%= link_to 'Show', [@survey, question] %></td>
   <td><%= link_to 'Edit', edit_survey_question_path(@survey, question) %></td>

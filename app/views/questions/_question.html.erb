@@ -1,6 +1,9 @@
-<div>
-  <label><%= question.q_type %></label>
-  <label><%= question.description %></label>
+<div class="form-group">
+  <label><%= question.description %></label><br>
+  <% if question.q_type=='multiple_choice' %>
+    <%= render partial: 'questions/multiple_choice', locals: {question: question} %>
+  <% else %>
+    <%= text_field_tag :answer, "", class: 'form-control' %>
+  <% end %>
   <br>
-  <%= text_field_tag :answer %>
 </div>

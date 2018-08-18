@@ -69,6 +69,9 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:q_type, :description, :survey_id)
+      temp_params = params.require(:question).permit(:q_type, :description, :settings, :survey_id)
+      temp_params[:settings] = JSON.parse(
+        if temp_params[:settings].empty? then "{}" else temp_params[:settings] end)
+      temp_params
     end
 end
