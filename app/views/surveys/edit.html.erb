@@ -2,5 +2,7 @@
 
 <%= render 'form', survey: @survey %>
 
-<%= link_to 'Show', @survey %> |
-<%= link_to 'Back', surveys_path %>
+<%= render 'edit_question_table', survey: @survey %>
+
+<%= link_to 'New Question', new_survey_question_path(@survey) %> |
+<%= link_to 'Back', @survey %>

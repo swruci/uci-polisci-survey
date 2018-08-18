@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  q_type: MyText
+  description: MyText
+  survey: one
+
+two:
+  q_type: MyText
+  description: MyText
+  survey: two
