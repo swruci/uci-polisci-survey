@@ -10,7 +10,7 @@
   <%= @survey.description %>
 </p>
 
-<%= render 'question_table', survey: @survey %>
+<%= render 'question_list', survey: @survey %>
 
 <%= link_to 'Edit', edit_survey_path(@survey) %> |
 <%= link_to 'Back', surveys_path %>

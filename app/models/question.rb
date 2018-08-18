@@ -1,3 +1,5 @@
 class Question < ApplicationRecord
   belongs_to :survey
-end
+
+  has_many :answers, dependant: :destroy
+ends

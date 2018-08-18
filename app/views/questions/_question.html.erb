@@ -1,5 +1,6 @@
-<tr>
-  <td><%= question.q_type %></td>
-  <td><%= question.description %></td>
-  <td><%= question.survey.id.to_s + '.' + question.survey.name %></td>
-</tr>
+<div>
+  <label><%= question.q_type %></label>
+  <label><%= question.description %></label>
+  <br>
+  <%= text_field_tag :answer %>
+</div>
