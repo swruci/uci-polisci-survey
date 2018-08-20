@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :questions do
       resources :answers
     end
+
+    resources :survey_responses
   end
 
   root 'surveys#index'

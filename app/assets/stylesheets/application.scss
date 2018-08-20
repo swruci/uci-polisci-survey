@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
 body {
   padding: 20px;
 }
@@ -23,4 +24,30 @@ body {
 
 .form-group {
   max-width: 600px;
+}
+
+.fade_button i{
+  opacity: 0;
+  font-size: 32px;
+  transition: opacity .5s ease;
+}
+
+.fade_button:hover i {
+  opacity: 1;
+}
+
+.list-group-flush .list-group-item {
+  background-color: transparent;
+}
+
+.surveys {
+  .survey {
+    cursor: pointer;
+  }
+}
+
+.list-group-item {
+  &:hover {
+    background-color: #ededed !important;
+  }
 }

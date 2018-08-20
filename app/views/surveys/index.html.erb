@@ -1,29 +1,37 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<h1>Surveys</h1>
+  <div class="py-5 text-center">
+    <img class="d-block mx-auto mb-4"
+    src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg"
+    alt="" width="72" height="72">
+    <h1>Surveys</h1>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+  <div class="list-group surveys list-group-flush">
     <% @surveys.each do |survey| %>
-      <tr>
-        <td><%= survey.name %></td>
-        <td><%= survey.description %></td>
-        <td><%= link_to 'Show', survey %></td>
-        <td><%= link_to 'Edit', edit_survey_path(survey) %></td>
-        <td><%= link_to 'Destroy', survey, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div
+        class="list-group-item survey d-flex justify-content-between align-items-center"
+        data-redirect="<%= url_for controller: 'surveys', action: 'show', id: survey.id %>"
+      >
+        <div><%= survey.name %></div>
+        <div class="d-flex">
+          <button class="btn btn-link fade_button" type="button"
+          data-toggle="collapse" data-target="#collapse-<%= survey.id %>"
+          aria-expanded="false" aria-controls="collapse-<%= survey.id %>">
+            <i class="material-icons">expand_more</i>
+          </button>
+          <%= button_to survey, method: :delete, data: { confirm: 'Are you sure?' },
+          class: 'btn btn-link fade_button' do %>
+            <i class="material-icons">delete</i>
+          <% end %>
+        </div>
+      </div>
+      <div class="collapse" id="collapse-<%= survey.id %>"><div class="card-body"><%= survey.description %></div></div>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
+  <br>
 
-<%= link_to 'New Survey', new_survey_path %>
+  <%= link_to 'New Survey', new_survey_path %>
+</div>
