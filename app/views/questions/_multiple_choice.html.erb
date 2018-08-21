@@ -1,8 +1,15 @@
+<!-- needed in questions/_question -->
 <% unless question.settings == 'null' %>
+
   <% question.settings.each do |key, value| %>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" value="<%= value %>" id="checkbox-<%= key %>"/>
-    <label class="form-check-label" for="checkbox-<%= key %>"><%= value %></label>
-  </div>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="question-<%= question.id %>"
+      id="option-button-<%= key %>" value="option-<%= key %>"/>
+      <label class="form-check-label" for="checkbox-<%= key %>">
+        <%= value %>
+      </label>
+    </div>
   <% end %>
+
 <% end %>

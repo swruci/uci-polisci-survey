@@ -11,4 +11,8 @@ class SurveyResponsesController < ApplicationController
       # TODO: Implement
       # Build the answers, bind them to questions, return the answers
     end
+
+    def set_survey
+      @survey = Survey.find(params[:survey_id])
+    end
 end

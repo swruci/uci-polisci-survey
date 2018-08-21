@@ -1,3 +1,11 @@
-<div>
+<!-- needed in surveys/show -->
+<form role="form" action="<%= survey_survey_responses_path(survey) %>"
+  accept-charset="UTF-8" method="post">
+  <input type="hidden" name="id" value="<%= survey.id %>">
   <%= render @survey.questions %>
-</div>
+  <div class="text-center">
+    <input type="submit" value="Submit" class="btn btn-secondary"
+    data-disable_with="Submitting..."/>
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+  </div>
+</form>

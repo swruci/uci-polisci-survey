@@ -5,7 +5,7 @@
 # window.onpageshow  = () ->
 # doesn't work if click on back button
 $(document).on 'turbolinks:load', ->
-  $('.survey').click (e) ->
+  $(".survey").click (e) ->
     if (e.target.nodeName isnt 'I' and e.target.nodeName isnt 'BUTTON')
       redirectTo $(this).data('redirect')
     return true

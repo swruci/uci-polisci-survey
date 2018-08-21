@@ -1,18 +1,15 @@
-<!-- needed in surveys/edit -->
+<!-- needed in questions/index -->
 <table>
   <thead>
     <tr>
       <th>Q type</th>
       <th>Description</th>
-      <th>Settings</th>
       <th>Survey</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @survey.questions.each do |question| %>
-      <%= render 'questions/edit_question', question: question  %>
-    <% end %>
+    <%= render @survey.questions %>
   </tbody>
 </table>

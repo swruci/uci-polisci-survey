@@ -29,7 +29,8 @@ class QuestionsController < ApplicationController
 
     if @question.save
       # survey_question_path(@survey, @question)
-      redirect_to [@survey, @question], notice: 'Question was successfully created.'
+      redirect_to [@survey, @question]
+      flash[:success] = 'Question was successfully created.'
     else
       render :new
     end
@@ -40,7 +41,8 @@ class QuestionsController < ApplicationController
   def update
 
       if @question.update(question_params)
-        redirect_to survey_question_path(@survey, @question), notice: 'Question was successfully updated.'
+        redirect_to survey_question_path(@survey, @question)
+        flash[:success] = 'Question was successfully updated.'
       else
         render :edit
       end
@@ -52,7 +54,8 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
 
-    redirect_to edit_survey_path(@survey), notice: 'Question was successfully destroyed.'
+    redirect_to edit_survey_path(@survey)
+    flash[:success] = 'Question was successfully destroyed.'
 
   end
 

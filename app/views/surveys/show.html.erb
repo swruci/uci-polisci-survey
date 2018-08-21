@@ -1,14 +1,12 @@
-<p id="notice"><%= notice %></p>
+<div>
+  <h4 class="mb-3">Name:</h4>
+  <div class="mb-3"><%= @survey.name %></div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @survey.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @survey.description %>
-</p>
+<div>
+  <h4 class="mb-3">Description:</h4>
+  <div class="mb-3"><%= @survey.description %></div>
+</div>
 
 <%= render 'render_question_list', survey: @survey %>
 

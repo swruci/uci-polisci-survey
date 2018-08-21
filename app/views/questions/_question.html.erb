@@ -1,9 +1,11 @@
+<!-- needed in surveys/render_question_list -->
 <div class="form-group">
   <label><%= question.description %></label><br>
   <% if question.q_type=='multiple_choice' %>
     <%= render partial: 'questions/multiple_choice', locals: {question: question} %>
   <% else %>
-    <%= text_field_tag :answer, "", class: 'form-control' %>
+    <textarea class="form-control" name="answer2-<%= question.id %>"
+      id="answer2-<%= question.id %>" rows="4"></textarea>
   <% end %>
   <br>
 </div>
