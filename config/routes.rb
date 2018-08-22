@@ -6,7 +6,11 @@ Rails.application.routes.draw do
       resources :answers
     end
 
-    resources :survey_responses
+    resources :survey_responses do
+      collection do
+        get 'thankyou'
+      end
+    end
   end
 
   root 'surveys#index'

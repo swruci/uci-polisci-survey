@@ -1,0 +1,14 @@
+<h1>Listing All Responses</h1>
+
+<% @responses.each do |response| %>
+  <h4>Response <%= response.id %></h4>
+  <ul>
+    <% response.answers.each do |answer| %>
+      <li>
+        <div>Q_id: <%= answer.question.id %></div>
+        <div><%= answer.description %></div>
+        <div><%= answer.data %></div>
+       </li>
+    <% end %>
+  </ul>
+<% end %>

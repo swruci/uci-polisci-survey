@@ -1,1 +1,23 @@
-<%= render 'surveys/question_table', survey: @survey %>
+<h1>Listing Questions</h1>
+
+<table>
+  <thead>
+      <th>Q_id</th>
+      <th>Q_type</th>
+      <th>Description</th>
+      <th>Settings</th>
+      <th>Survey</th>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
+
+  <% @questions.each do |question| %>
+    <tr>
+      <td><%= question.id %></td>
+      <td><%= question.q_type %></td>
+      <td><%= question.description %></td>
+      <td><%= question.settings %></td>
+      <td><%= question.survey.id.to_s + '.' + question.survey.name %></td>
+    </tr>
+  <% end %>
+</table>

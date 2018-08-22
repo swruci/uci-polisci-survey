@@ -1,11 +1,31 @@
 <!-- needed in surveys/render_question_list -->
 <div class="form-group">
   <label><%= question.description %></label><br>
+
   <% if question.q_type=='multiple_choice' %>
-    <%= render partial: 'questions/multiple_choice', locals: {question: question} %>
-  <% else %>
-    <textarea class="form-control" name="answer2-<%= question.id %>"
+    <% unless question.settings == 'null' %>
+      <% question.settings.each do |key, value| %>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="answers[<%= question.id %>]"
+          id="option-button-<%= key %>" value="<%= key+" : "+value %>"/>
+          <label class="form-check-label" for="option-button-<%= key %>">
+            <%= value %>
+          </label>
+        </div>
+      <% end %>
+    <% end %>
+
+  <% elsif question.q_type=='free_response' %>
+    <textarea class="form-control" name="answers[<%= question.id %>]"
       id="answer2-<%= question.id %>" rows="4"></textarea>
+
+  <% elsif question.q_type=='game' %>
+  <!-- TODO -->
+
+  <% else %>
+    <div>Unknown question type: shouldn't happen... Contact tech support if you see this</div>
   <% end %>
+
   <br>
 </div>

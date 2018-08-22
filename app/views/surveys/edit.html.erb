@@ -2,7 +2,31 @@
 
 <%= render 'form', survey: @survey %>
 
-<%= render 'edit_question_table', survey: @survey %>
+<table>
+  <thead>
+    <tr>
+      <th>Q type</th>
+      <th>Description</th>
+      <th>Settings</th>
+      <th>Survey</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @survey.questions.each do |question| %>
+      <tr>
+        <td><%= question.q_type %></td>
+        <td><%= question.description %></td>
+        <td><%= question.settings %></td>
+        <td><%= question.survey.id.to_s + '.' + question.survey.name %></td>
+        <td><%= link_to 'Show', [@survey, question] %></td>
+        <td><%= link_to 'Destroy', survey_question_path(@survey, question),
+        method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'New Question', new_survey_question_path(@survey) %> |
 <%= link_to 'Back', @survey %>
