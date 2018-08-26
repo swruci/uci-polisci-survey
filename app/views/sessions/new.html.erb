@@ -1,0 +1,28 @@
+<div class="text-center">
+  <form class="form-signin" accept-charset="UTF-8" action="/login" method="post">
+    <img class="mb-4" src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg"
+    alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+
+    <label for="inputUsername" class="sr-only">Username</label>
+    <input type="text" name="session[username]" id="inputUsername" class="form-control"
+      placeholder="username" required autofocus>
+
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="session[password]" id="inputPassword" class="form-control"
+      placeholder="Password" required>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  </form>
+  <%= link_to 'Home', surveys_path %>
+</div>
+
+<%= debug(params) if Rails.env.development? %>

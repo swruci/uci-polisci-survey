@@ -11,7 +11,8 @@
 #
 
 class Survey < ApplicationRecord
-  has_many :questions, dependent: :destroy
+  has_many :pages, dependent: :destroy
+  has_many :questions, through: :pages
   has_many :answers, through: :questions
   has_many :responses, class_name: "SurveyResponse", foreign_key: "survey_id", dependent: :destroy
 end

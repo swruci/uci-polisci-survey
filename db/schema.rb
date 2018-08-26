@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_22_034648) do
+ActiveRecord::Schema.define(version: 2018_08_26_011540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,14 +26,21 @@ ActiveRecord::Schema.define(version: 2018_08_22_034648) do
     t.index ["survey_response_id"], name: "index_answers_on_survey_response_id"
   end
 
-  create_table "questions", force: :cascade do |t|
-    t.text "q_type"
-    t.text "description"
+  create_table "pages", force: :cascade do |t|
     t.bigint "survey_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["survey_id"], name: "index_pages_on_survey_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "q_type"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.json "settings"
-    t.index ["survey_id"], name: "index_questions_on_survey_id"
+    t.bigint "page_id"
+    t.index ["page_id"], name: "index_questions_on_page_id"
   end
 
   create_table "survey_responses", force: :cascade do |t|
@@ -51,8 +58,16 @@ ActiveRecord::Schema.define(version: 2018_08_22_034648) do
     t.text "afterword"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.text "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "password_digest"
+  end
+
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "survey_responses"
-  add_foreign_key "questions", "surveys"
+  add_foreign_key "pages", "surveys"
+  add_foreign_key "questions", "pages"
   add_foreign_key "survey_responses", "surveys"
 end

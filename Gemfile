@@ -27,6 +27,7 @@ gem "pundit"
 gem 'pg'
 gem 'popper_js', '~> 1.14.3'
 gem 'jquery-rails'
+gem 'bcrypt'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
