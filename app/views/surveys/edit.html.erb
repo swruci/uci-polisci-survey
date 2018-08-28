@@ -2,31 +2,29 @@
 
 <%= render 'form', survey: @survey %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Q type</th>
-      <th>Description</th>
-      <th>Settings</th>
-      <th>Survey</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @survey.questions.each do |question| %>
+<div class="py-5">
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= question.q_type %></td>
-        <td><%= question.description %></td>
-        <td><%= question.settings %></td>
-        <td><%= question.survey.id.to_s + '.' + question.survey.name %></td>
-        <td><%= link_to 'Show', [@survey, question] %></td>
-        <td><%= link_to 'Destroy', survey_question_path(@survey, question),
-        method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th scope="col">Page ID</th>
+        <th scope="col">Page Number</th>
+        <th scope="col" colspan="2">Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<%= link_to 'New Question', new_survey_question_path(@survey) %> |
+    <tbody>
+      <% @survey.pages.each do |page| %>
+        <tr>
+          <td><%= page.id %></td>
+          <td><%= page.pagenum %></td>
+          <td><%= link_to 'Edit', edit_survey_page_path(@survey, page) %></td>
+          <td><%= link_to 'Destroy', survey_page_path(@survey, page),
+          method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'New Page', new_survey_page_path(@survey) %> |
 <%= link_to 'Back', @survey %>

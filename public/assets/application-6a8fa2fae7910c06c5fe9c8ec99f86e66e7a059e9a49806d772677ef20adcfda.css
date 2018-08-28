@@ -1,0 +1,67 @@
+/* miscellaneous */
+/* line 9, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/custom.scss */
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+/* line 18, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+body {
+  padding: 20px;
+}
+
+/* line 22, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.hidden {
+  display: none;
+}
+
+/* line 26, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.form-group {
+  max-width: 600px;
+}
+
+/* line 30, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.fade_button i {
+  opacity: 0;
+  font-size: 32px;
+  transition: opacity .5s ease;
+}
+
+/* line 36, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.fade_button:hover i {
+  opacity: 1;
+}
+
+/* line 40, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.list-group-flush .list-group-item {
+  background-color: transparent;
+}
+
+/* line 45, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.surveys .survey {
+  cursor: pointer;
+}
+
+/* line 51, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.list-group-item:hover {
+  background-color: #ededed !important;
+}

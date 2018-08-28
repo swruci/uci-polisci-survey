@@ -1,0 +1,24 @@
+<%= form_with(model: [@survey, @page], local: true) do |form| %>
+  <% if @page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% @page.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :pagenum %><br>
+    <%= form.number_field :pagenum, class: 'form-control' %>
+  </div>
+
+  <br>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-secondary' %>
+  </div>
+<% end %>

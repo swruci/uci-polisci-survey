@@ -1,0 +1,32 @@
+<h1>Editing Page</h1>
+
+<%= render 'form' %>
+
+<div class="py-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Q_id</th>
+        <th scope="col">Q_type</th>
+        <th scope="col">Description</th>
+        <th scope="col">Settings</th>
+        <th scope="col" colspan="2">Actions</th>
+      </tr>
+    </thead>
+
+    <% @page.questions.each do |question| %>
+      <tr>
+        <td><%= question.id %></td>
+        <td><%= question.q_type %></td>
+        <td><%= question.description %></td>
+        <td><%= question.settings %></td>
+        <td><%= link_to 'Edit', edit_survey_page_question_path(@survey, @page, question) %></td>
+        <td><%= link_to 'Destroy', survey_page_question_path(@survey, @page, question),
+        method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= link_to 'New Question', new_survey_page_question_path(@survey, @page) %> |
+<%= link_to 'Back', edit_survey_path(@survey) %>

@@ -13,19 +13,17 @@
     >
       <div><%= survey.name %></div>
 
-      <% if logged_in? %>
-        <div class="d-flex">
-          <button class="btn btn-link fade_button" type="button"
-          data-toggle="collapse" data-target="#collapse-<%= survey.id %>"
-          aria-expanded="false" aria-controls="collapse-<%= survey.id %>">
-            <i class="material-icons">expand_more</i>
-          </button>
-          <%= button_to survey, method: :delete, data: { confirm: 'Are you sure?' },
-          class: 'btn btn-link fade_button' do %>
-            <i class="material-icons">delete</i>
-          <% end %>
-        </div>
-      <% end %>
+      <div class="d-flex">
+        <button class="btn btn-link fade_button" type="button"
+        data-toggle="collapse" data-target="#collapse-<%= survey.id %>"
+        aria-expanded="false" aria-controls="collapse-<%= survey.id %>">
+          <i class="material-icons">expand_more</i>
+        </button>
+        <%= button_to survey, method: :delete, data: { confirm: 'Are you sure?' },
+        class: 'btn btn-link fade_button' do %>
+          <i class="material-icons">delete</i>
+        <% end %>
+      </div>
 
     </div>
     <div class="collapse" id="collapse-<%= survey.id %>"><div class="card-body"><%= survey.description %></div></div>
@@ -33,12 +31,5 @@
 </div>
 
 <br>
-
-<% if logged_in? %>
-  <%= current_user.username %> |
-  <%= link_to 'Logout', logout_path %>
-<% else %>
-  <%= link_to 'Login', login_path %>
-<% end %> |
 
 <%= link_to 'New Survey', new_survey_path %>

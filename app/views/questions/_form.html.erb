@@ -1,5 +1,5 @@
 <!-- needed in questions/new,edit -->
-<%= form_with(model: [@survey, question], local: true) do |form| %>
+<%= form_with(model: [@survey, @page, question], local: true) do |form| %>
   <% if question.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
