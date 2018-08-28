@@ -25,7 +25,7 @@ class QuestionsController < ApplicationController
 
     if @question.save
       # survey_question_path(@survey, @question)
-      redirect_to survey_page_question_path(@survey, @page, @question)
+      redirect_to edit_survey_page_path(@survey, @page)
       flash[:success] = 'Question was successfully created.'
     else
       render :new
@@ -37,7 +37,7 @@ class QuestionsController < ApplicationController
   def update
 
     if @question.update(question_params)
-      redirect_to survey_page_question_path(@survey, @page, @question)
+      redirect_to edit_survey_page_path(@survey, @page)
       flash[:success] = 'Question was successfully updated.'
     else
       render :edit
