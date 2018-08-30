@@ -13,13 +13,13 @@
   <% end %>
 
   <div class="field" id="questionTypeField">
-    <%= form.label :q_type %> <br><br>
-    <%= form.select :q_type, Question.types.keys %>
+    <%= form.label :q_type %> <br>
+    <%= form.select :q_type, Question.types.keys, {}, {class: 'form-control'} %>
   </div> <br>
 
   <div class="field">
     <%= form.label :description %> <br>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: 'form-control', rows: 4, :required => true %>
   </div>
 
   <div class="field">
@@ -96,7 +96,11 @@
       var key = entry[0];
       var val = entry[1];
       var keyEl = $('input', { type:'text', value: key});
-      var valEl = $('input', { type:'text', value: val});
+      keyEl.className = "form-control";
+      var valEl = $('textarea', { type:'text', value: val});
+      valEl.className = 'form-control';
+      valEl.required = true;
+      valEl.setAttribute('rows', 2);
       var wrapper1 = $('div');
       wrapper1.appendChild(document.createTextNode('Question Label '));
       wrapper1.appendChild(keyEl);
@@ -151,4 +155,5 @@
       JSON.stringify(settingsObj);
     return true;
   }
+  
 </script>

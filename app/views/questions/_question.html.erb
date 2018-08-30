@@ -1,8 +1,8 @@
-<!-- needed in surveys/render_question_list -->
+<!-- needed in surveys/show -->
 <div class="form-group">
   <label><%= question.description %></label><br>
 
-  <% if question.q_type=='multiple_choice' %>
+  <% if question.q_type == 'multiple_choice' %>
     <% unless question.settings == 'null' %>
       <% question.settings.each do |key, value| %>
 
@@ -16,7 +16,7 @@
       <% end %>
     <% end %>
 
-  <% elsif question.q_type=='free_response' %>
+  <% elsif question.q_type == 'free_response' %>
     <textarea class="form-control" name="answers[<%= question.id %>]"
       id="answer2-<%= question.id %>" rows="4"></textarea>
 

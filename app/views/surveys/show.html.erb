@@ -8,7 +8,74 @@
   <div class="mb-3"><%= @survey.description %></div>
 </div>
 
-<%= render 'render_question_list', survey: @survey %>
+<%-# render 'render_question_list', survey: @survey -%>
+
+<br><br><br>
+
+<form role="form" action="<%= survey_survey_responses_path(@survey) %>"
+  accept-charset="UTF-8" method="post">
+  <input type="hidden" name="id" value="<%= @survey.id %>">
+
+  <div id="carouselInForm" class="carousel slide" data-interval="false">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselInForm" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselInForm" data-slide-to="1"></li>
+      <li data-target="#carouselInForm" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <% @survey.pages.each_with_index do |page, idx| %>
+        <% if idx == 0 %>
+        <div class="carousel-item active">
+        <% else %>
+        <div class="carousel-item">
+        <% end %>
+          <!-- <div class="container-fluid"> -->
+            <%= render page.questions %>
+          <!-- </div> -->
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <div>
+      <button type="button" class="btn btn-light nav-btn" href="#carouselInForm"
+      role="button" data-slide="prev">
+        <i class="material-icons">navigate_before</i>
+      </button>
+    </div>
+
+    <div id="pagenum" class="text-center py-2"></div>
+
+    <div>
+      <button type="button" class="btn btn-light nav-btn" href="#carouselInForm"
+      role="button" data-slide="next">
+        <i class="material-icons">navigate_next</i>
+      </button>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <input type="submit" value="Submit" class="btn btn-secondary"
+    data-disable_with="Submitting..."/>
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+  </div>
+</form>
+
 
 <%= link_to 'Edit', edit_survey_path(@survey) %> |
 <%= link_to 'Back', surveys_path %>
+
+<script>
+  var pagenumField = document.querySelector('#pagenum');
+
+  pagenumField.appendChild(document.createTextNode($('.active').index()+1));
+
+  $('#carouselInForm').on('slide.bs.carousel', function(e){
+    // console.log(e.direction)     // The direction in which the carousel is sliding (either "left" or "right").
+    // console.log(e.relatedTarget) // The DOM element that is being slid into place as the active item.
+    // console.log(e.from)          // The index of the current item.
+    // console.log(e.to)            // The index of the next item.
+    pagenumField.firstChild.nodeValue = e.to+1;
+  });
+</script>

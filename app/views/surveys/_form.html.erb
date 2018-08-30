@@ -14,21 +14,21 @@
 
   <div class="field">
     <%= form.label :name %><br>
-    <%= form.text_field :name, class: 'form-control' %>
+    <%= form.text_field :name, class: 'form-control', :required => true %>
   </div>
 
   <br>
 
   <div class="field">
     <%= form.label :description %><br>
-    <%= form.text_area :description, class: 'form-control', rows: 4 %>
+    <%= form.text_area :description, class: 'form-control', rows: 4, :required => true %>
   </div>
 
   <br>
 
   <div class="field">
     <%= form.label :afterword %><br>
-    <%= form.text_area :afterword, class: 'form-control', rows: 4 %>
+    <%= form.text_area :afterword, class: 'form-control', rows: 4, :required => true %>
   </div>
 
   <br>
