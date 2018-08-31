@@ -13,15 +13,19 @@
     >
       <div><%= survey.name %></div>
 
+
       <div class="d-flex">
         <button class="btn btn-link fade_button" type="button"
         data-toggle="collapse" data-target="#collapse-<%= survey.id %>"
         aria-expanded="false" aria-controls="collapse-<%= survey.id %>">
           <i class="material-icons">expand_more</i>
         </button>
-        <%= button_to survey, method: :delete, data: { confirm: 'Are you sure?' },
-        class: 'btn btn-link fade_button' do %>
-          <i class="material-icons">delete</i>
+
+        <% if user_signed_in? %>
+          <%= button_to survey, method: :delete, data: { confirm: 'Are you sure?' },
+          class: 'btn btn-link fade_button' do %>
+            <i class="material-icons">delete</i>
+          <% end %>
         <% end %>
       </div>
 
@@ -32,4 +36,10 @@
 
 <br>
 
+<% if user_signed_in? %>
+  <%= current_user.email %> |
+  <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to 'Log in', new_user_session_path %>
+<% end %> |
 <%= link_to 'New Survey', new_survey_path %>

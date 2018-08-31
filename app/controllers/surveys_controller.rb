@@ -19,12 +19,14 @@ class SurveysController < ApplicationController
 
   # GET /surveys/1/edit
   def edit
+    authorize @survey
   end
 
   # POST /surveys
   # POST /surveys.json
   def create
     @survey = Survey.new(survey_params)
+    authorize @survey
 
     if @survey.save
       redirect_to surveys_path
@@ -37,6 +39,7 @@ class SurveysController < ApplicationController
   # PATCH/PUT /surveys/1
   # PATCH/PUT /surveys/1.json
   def update
+    authorize @survey
 
     if @survey.update(survey_params)
       redirect_to surveys_path
@@ -50,6 +53,7 @@ class SurveysController < ApplicationController
   # DELETE /surveys/1
   # DELETE /surveys/1.json
   def destroy
+    authorize @survey
     @survey.destroy
 
     redirect_to surveys_path

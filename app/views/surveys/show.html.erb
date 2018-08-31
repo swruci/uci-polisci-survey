@@ -13,7 +13,7 @@
 <br><br><br>
 
 <form role="form" action="<%= survey_survey_responses_path(@survey) %>"
-  accept-charset="UTF-8" method="post">
+  accept-charset="UTF-8" method="post" id="surveyForm" onsubmit="return validateForm()">
   <input type="hidden" name="id" value="<%= @survey.id %>">
 
   <div id="carouselInForm" class="carousel slide" data-interval="false">
@@ -62,8 +62,9 @@
   </div>
 </form>
 
-
+<% if user_signed_in? %>
 <%= link_to 'Edit', edit_survey_path(@survey) %> |
+<% end %>
 <%= link_to 'Back', surveys_path %>
 
 <script>
@@ -78,4 +79,11 @@
     // console.log(e.to)            // The index of the next item.
     pagenumField.firstChild.nodeValue = e.to+1;
   });
+
+  var form = document.getElementById('surveyForm');
+
+  var validateForm = function (){
+    if (!form.checkValidity()){
+    }
+  }
 </script>
