@@ -14,7 +14,7 @@
 class Question < ApplicationRecord
   belongs_to :page
 
-  enum type: [:multiple_choice,:free_response,:game]
+  enum type: [:multiple_choice,:free_response,:button_group,:game]
   validates :q_type, :inclusion => {:in => Question.types.keys}
 
   has_many :answers, dependent: :destroy

@@ -18,9 +18,13 @@
 
   <div id="carouselInForm" class="carousel slide" data-interval="false">
     <ol class="carousel-indicators">
-      <li data-target="#carouselInForm" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselInForm" data-slide-to="1"></li>
-      <li data-target="#carouselInForm" data-slide-to="2"></li>
+      <% @survey.pages.each_with_index do |page, idx| %>
+        <% if idx == 0 %>
+        <li data-target="#carouselInForm" data-slide-to="<%= idx %>" class="active"></li>
+        <% else %>
+        <li data-target="#carouselInForm" data-slide-to="<%= idx %>"></li>
+        <% end %>
+      <% end %>
     </ol>
     <div class="carousel-inner">
       <% @survey.pages.each_with_index do |page, idx| %>
@@ -45,7 +49,7 @@
       </button>
     </div>
 
-    <div id="pagenum" class="text-center py-2"></div>
+    <!-- <div id="pagenum" class="text-center py-2"></div> -->
 
     <div>
       <button type="button" class="btn btn-light nav-btn" href="#carouselInForm"
@@ -68,22 +72,22 @@
 <%= link_to 'Back', surveys_path %>
 
 <script>
-  var pagenumField = document.querySelector('#pagenum');
-
-  pagenumField.appendChild(document.createTextNode($('.active').index()+1));
-
-  $('#carouselInForm').on('slide.bs.carousel', function(e){
-    // console.log(e.direction)     // The direction in which the carousel is sliding (either "left" or "right").
-    // console.log(e.relatedTarget) // The DOM element that is being slid into place as the active item.
-    // console.log(e.from)          // The index of the current item.
-    // console.log(e.to)            // The index of the next item.
-    pagenumField.firstChild.nodeValue = e.to+1;
-  });
-
-  var form = document.getElementById('surveyForm');
-
-  var validateForm = function (){
-    if (!form.checkValidity()){
-    }
-  }
+  // var pagenumField = document.querySelector('#pagenum');
+  //
+  // pagenumField.appendChild(document.createTextNode($('.active').index()+1));
+  //
+  // $('#carouselInForm').on('slide.bs.carousel', function(e){
+  //   // console.log(e.direction)     // The direction in which the carousel is sliding (either "left" or "right").
+  //   // console.log(e.relatedTarget) // The DOM element that is being slid into place as the active item.
+  //   // console.log(e.from)          // The index of the current item.
+  //   // console.log(e.to)            // The index of the next item.
+  //   pagenumField.firstChild.nodeValue = e.to+1;
+  // });
+  //
+  // var form = document.getElementById('surveyForm');
+  //
+  // var validateForm = function (){
+  //   if (!form.checkValidity()){
+  //   }
+  // }
 </script>

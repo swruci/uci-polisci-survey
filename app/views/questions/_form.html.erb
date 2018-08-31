@@ -60,7 +60,8 @@
   var settingsField = document.querySelector('#settingsField');
   var qTypeSelectField = document.querySelector("#questionTypeField select");
   qTypeSelectField.onchange = function(){
-    if (qTypeSelectField.value === 'multiple_choice') {
+    if (qTypeSelectField.value === 'multiple_choice' ||
+      qTypeSelectField.value === 'button_group') {
       settingsField.classList.remove('hidden');
     } else {
       if (!settingsField.classList.contains('hidden')) {
@@ -155,5 +156,5 @@
       JSON.stringify(settingsObj);
     return true;
   }
-  
+
 </script>

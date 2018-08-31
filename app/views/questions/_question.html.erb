@@ -8,7 +8,7 @@
 
         <div class="form-check">
           <input class="form-check-input" type="radio" name="answers[<%= question.id %>]"
-          id="option-button-<%= key %>" value="<%= key+" : "+value %>" required/>
+          value="<%= key+" : "+value %>" required/>
           <label class="form-check-label" for="option-button-<%= key %>">
             <%= value %>
           </label>
@@ -16,9 +16,23 @@
       <% end %>
     <% end %>
 
+  <% elsif question.q_type == 'button_group' %>
+    <% unless question.settings == 'null' %>
+      <div class="input-group" data-toggle="buttons">
+        <div class="input-group-prepend">
+        <% question.settings.each do |key, value| %>
+          <button type="button" class="btn btn-outline-dark">
+            <input type="radio" name="answers[<%= question.id %>]"
+            value="<%= key+" : "+value %>" required hidden> <%= value %>
+          </button>
+        <% end %>
+        </div>
+      </div>
+    <% end %>
+
   <% elsif question.q_type == 'free_response' %>
     <textarea class="form-control" name="answers[<%= question.id %>]"
-      id="answer2-<%= question.id %>" rows="4" required></textarea>
+      rows="4" required></textarea>
 
   <% elsif question.q_type=='game' %>
   <!-- TODO -->
