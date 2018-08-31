@@ -18,7 +18,7 @@ class SurveyResponsesController < ApplicationController
     @survey_response.answers << answers
     # Fail if you can't
     if @survey_response.save
-      redirect_to survey_survey_responses_path @survey
+      redirect_to thankyou_survey_survey_responses_path @survey
       flash[:success] = 'Survey response was successfully created.'
     else
       render :new
