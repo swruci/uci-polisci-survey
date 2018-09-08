@@ -36,6 +36,15 @@
       <button type="button" id="addButton" style="margin-bottom: 10px">Add Option</button>
   </div>
 
+  <div class="field" id="videoUrlField">
+    <%= form.label :video_url %> <br>
+    <%= form.text_area :video_url, class: 'form-control', rows: 4, style: 'margin-bottom: 10px' %>
+  </div>
+
+  <div class="field" id="gameField">
+    <div>Game ID<input type="number" class="form-control" style="margin-bottom: 10px"></div>
+  </div>
+
   <div class="hidden" id="realSettingsField">
     <%= form.label :settings %> <br>
     <%= form.text_area :settings %>
@@ -58,7 +67,10 @@
 
   // automatically hide/show the settings field
   var settingsField = document.querySelector('#settingsField');
+  var gameField = document.querySelector('#gameField');
   var qTypeSelectField = document.querySelector("#questionTypeField select");
+  var videoUrlField = document.querySelector("#videoUrlField");
+  
   qTypeSelectField.onchange = function(){
     if (qTypeSelectField.value === 'multiple_choice' ||
       qTypeSelectField.value === 'button_group') {
@@ -66,6 +78,22 @@
     } else {
       if (!settingsField.classList.contains('hidden')) {
         settingsField.classList.add('hidden');
+      }
+    }
+
+    if (qTypeSelectField.value === 'game'){
+      gameField.classList.remove('hidden');
+    } else {
+      if (!gameField.classList.contains('hidden')) {
+        gameField.classList.add('hidden');
+      }
+    }
+
+    if (qTypeSelectField.value === 'video'){
+      videoUrlField.classList.remove('hidden');
+    } else {
+      if (!videoUrlField.classList.contains('hidden')) {
+        videoUrlField.classList.add('hidden');
       }
     }
   }
@@ -103,10 +131,10 @@
       valEl.required = true;
       valEl.setAttribute('rows', 2);
       var wrapper1 = $('div');
-      wrapper1.appendChild(document.createTextNode('Question Label '));
+      wrapper1.appendChild(document.createTextNode('Option Label '));
       wrapper1.appendChild(keyEl);
       var wrapper2 = $('div', { style: 'margin-bottom: 5px' });
-      wrapper2.appendChild(document.createTextNode('Question Value '));
+      wrapper2.appendChild(document.createTextNode('Option Value '));
       wrapper2.appendChild(valEl);
       var wrapper = $('div');
       wrapper.appendChild(wrapper1);
@@ -147,14 +175,23 @@
 
   document.querySelector('form').onsubmit = function(e) {
     var settingsObj = {};
-    Array.from(optionsField.children).forEach(function(div) {
-      var key = div.children[0].children[0].value;
-      var val = div.children[1].children[0].value;
-      settingsObj[key] = val;
-    })
+    if (qTypeSelectField.value === 'multiple_choice' ||
+    qTypeSelectField.value === 'button_group'){
+      Array.from(optionsField.children).forEach(function(div) {
+        var key = div.children[0].children[0].value;
+        var val = div.children[1].children[0].value;
+        settingsObj[key] = val;
+      })
+    } else if (qTypeSelectField.value === 'game'){
+      var val = gameField.children[0].children[0].value;
+      settingsObj['GameID'] = val;
+    } else if (qTypeSelectField.value === 'video'){
+      settingsObj['url'] = videoUrlField.children[2].value;
+    }
     document.querySelector('#realSettingsField textarea').value =
       JSON.stringify(settingsObj);
     return true;
+    
   }
 
 </script>

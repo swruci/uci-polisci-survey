@@ -6,7 +6,6 @@
       <th>Q_type</th>
       <th>Description</th>
       <th>Settings</th>
-      <th>Survey</th>
       <th colspan="5"></th>
     </tr>
   </thead>
@@ -17,7 +16,6 @@
       <td><%= question.q_type %></td>
       <td><%= question.description %></td>
       <td><%= question.settings %></td>
-      <td><%= question.survey.id.to_s + '.' + question.survey.name %></td>
     </tr>
   <% end %>
 </table>

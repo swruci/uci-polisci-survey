@@ -81,3 +81,8 @@ body {
 .carousel-indicators .active {
   background-color: #444 !important;
 }
+
+/* line 69, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.fixed_width {
+  width: 160px !important;
+}

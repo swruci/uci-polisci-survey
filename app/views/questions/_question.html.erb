@@ -35,7 +35,11 @@
       rows="4" required></textarea>
 
   <% elsif question.q_type=='game' %>
-  <!-- TODO -->
+    <%= render 'questions/game' + question.settings['GameID'].to_s, question: question %>
+
+  <% elsif question.q_type=='video' %>
+    <iframe width="560" height="315" src="<%= question.settings['url'] %>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>
 
   <% else %>
     <div>Unknown question type: shouldn't happen... Contact tech support if you see this</div>
