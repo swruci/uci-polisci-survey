@@ -134,7 +134,8 @@
 
   $('#carouselInForm').on('slide.bs.carousel', function (e) {
     var isActivePageValid = checkActivePageValidity();
-    if (!checkActivePageValidity) {
+    if (!isActivePageValid) {
+      e.preventDefault();
       return false;
     }
     if (e.to === <%= @survey.pages.length - 1 %>) {

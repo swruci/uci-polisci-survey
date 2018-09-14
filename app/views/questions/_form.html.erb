@@ -38,7 +38,7 @@
 
   <div class="field" id="videoUrlField">
     <%= form.label :video_url %> <br>
-    <%= form.text_area :video_url, class: 'form-control', rows: 4, style: 'margin-bottom: 10px' %>
+    <textarea class="form-control" rows="4" style="margin-bottom: 10px" name="question[settings]" id="question_settings"><%= question.settings['url'] %></textarea>
   </div>
 
   <div class="field" id="gameField">
