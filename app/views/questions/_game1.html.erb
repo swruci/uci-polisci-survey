@@ -38,6 +38,8 @@
 
       function renderFlask(index) {
         var image = getFlask(index);
+        image.width = 512;
+        image.heigh = 512;
         var flask = new createjs.Bitmap(image);
         // w = 512 , h= 512 , scale: 0.15625
         // flask.scaleX = 0.15625;
@@ -126,6 +128,8 @@
         // var emptImage = new Image();
         // emptImage.src = emptyFlaskPath(flask.id);
         var emptImage = getEmptFlask(flask.id);
+        emptImage.width = 512;
+        emptImage.heigh = 512;
         createjs.Tween.get(flask)
             .wait(2000*(index))
             .to({x:100, y:90, rotation:-100}, 700, createjs.Ease.quadOut)
