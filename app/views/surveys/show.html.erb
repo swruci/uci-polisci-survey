@@ -5,7 +5,7 @@
 
 <div>
   <h4 class="mb-3">Description:</h4>
-  <div class="mb-3"><%= @survey.description %></div>
+  <div class="mb-3"><%= markdown(@survey.description) %></div>
 </div>
 
 <%-# render 'render_question_list', survey: @survey -%>
@@ -13,7 +13,7 @@
 <br><br><br>
 
 <form role="form" action="<%= survey_survey_responses_path(@survey) %>"
-  accept-charset="UTF-8" method="post" id="surveyForm" onsubmit="return validateForm()">
+  accept-charset="UTF-8" method="post" id="surveyForm">
   <input type="hidden" name="id" value="<%= @survey.id %>">
 
   <div id="carouselInForm" class="carousel slide" data-interval="false">
@@ -33,11 +33,14 @@
         <% else %>
         <div class="carousel-item">
         <% end %>
-          <!-- <div class="container-fluid"> -->
-            <%= render page.questions %>
-          <!-- </div> -->
+          <%= render page.questions %>
         </div>
       <% end %>
+    </div>
+    <div class="text-center" id="submit-container">
+      <input type="submit" value="Submit" class="btn btn-secondary"
+      data-disable_with="Submitting..."/>
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
     </div>
   </div>
 
@@ -58,20 +61,15 @@
       </button>
     </div>
   </div>
-
-  <div class="text-center">
-    <input type="submit" value="Submit" class="btn btn-secondary"
-    data-disable_with="Submitting..."/>
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
-  </div>
 </form>
 
 <% if user_signed_in? %>
 <%= link_to 'Edit', edit_survey_path(@survey) %> |
 <% end %>
-<%= link_to 'Back', surveys_path %>
+<%= link_to 'Exit', surveys_path %>
 
-<script>
+<% content_for :scripts do %>
+  <script>
   // var pagenumField = document.querySelector('#pagenum');
   //
   // pagenumField.appendChild(document.createTextNode($('.active').index()+1));
@@ -90,4 +88,68 @@
   //   if (!form.checkValidity()){
   //   }
   // }
-</script>
+  var submitContainer = $('#submit-container');
+  var prevBtn = $('[data-slide="prev"]');
+  var nextBtn = $('[data-slide="next"]');
+
+  prevBtn.hide();
+  submitContainer.hide();
+
+  var validator = $('form').validate({
+    showErrors: function (errorMap, errorList) {
+      $.each(this.successList, function (index, element) {
+        return $(element).popover("dispose");
+      });
+
+      $.each(errorList, function (index, error) {
+        var ele = $(error.element);
+        //Instead of referencing the popover directly, I use the element that is the target for the popover
+
+        ele.popover({
+          trigger: "manual",
+          placement: "top",
+          content: error.message,
+        });
+
+        return ele.popover("show");
+      });
+    }
+  });
+
+  var checkActivePageValidity = function () {
+    var activePage = document.querySelector('.carousel-item.active');
+    var allValid = ['input', 'textarea', 'select']
+      .flatMap(x => Array.from(activePage.querySelectorAll(x)))
+      .reduce((allValid, el) => allValid && validator.element($(el)), true);
+    return allValid;
+  }
+
+  $('form').on('submit', function(e) {
+    var isValid = checkActivePageValidity();
+    if (!isValid) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  $('#carouselInForm').on('slide.bs.carousel', function (e) {
+    var isActivePageValid = checkActivePageValidity();
+    if (!checkActivePageValidity) {
+      return false;
+    }
+    if (e.to === <%= @survey.pages.length - 1 %>) {
+      prevBtn.show();
+      nextBtn.hide();
+      submitContainer.show();
+    } else if (e.to === 0) {
+      prevBtn.hide();
+      nextBtn.show();
+      submitContainer.hide();
+    } else {
+      prevBtn.show();
+      nextBtn.show();
+      submitContainer.hide();
+    }
+  });
+  </script>
+<% end %>

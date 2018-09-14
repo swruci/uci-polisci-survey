@@ -20,9 +20,10 @@
     stage.canvas.height = 400;
     stage.enableMouseOver(10);
     
+    var flaskArr = [];
+    var selectedFlasks = [];
     function game(){
-      var flaskArr = [];
-      var selectedFlasks = [];
+
       // var flaskPath = function(index) { return '/assets/flask'+index+'.svg';};
       // var emptyFlaskPath = function(index) { return '/assets/empty_flask'+index+'.svg';};
 
@@ -37,15 +38,7 @@
 
       function renderFlask(index) {
         var image = getFlask(index);
-        // new Image();
-        // image.src = flaskPath(index);
-        image.width = 512;
-        image.height = 512;
         var flask = new createjs.Bitmap(image);
-        debugger;
-        flask.image.onload = function() {
-            stage.update();
-        }
         // w = 512 , h= 512 , scale: 0.15625
         // flask.scaleX = 0.15625;
         // flask.scaleY = 0.15625;
@@ -64,15 +57,15 @@
         flask.hitArea = hit;
 
         var setCoordinate = function() {
-            var width = image.width;
-            flask.x += (index - 1) * (width/10 + 40);
+          var width = image.width;
+          flask.x += (index - 1) * (width/10 + 40);
         };
 
         var setHitArea = function() {
-            var hit = new createjs.Shape();
-            hit.graphics.beginFill('#000').drawRect(0, 0, image.width, image.height);
-            hit.cursor = 'pointer';
-            flask.hitArea = hit;
+          var hit = new createjs.Shape();
+          hit.graphics.beginFill('#000').drawRect(0, 0, image.width, image.height);
+          hit.cursor = 'pointer';
+          flask.hitArea = hit;
         };
 
         // Wait for the images to load, then set their coordinates
@@ -107,11 +100,11 @@
       }
 
       var setupGame = function() {
-      $(selectedInfo).html('Currently selected flasks: ');
-      selectedFlasks = [];
-      for (let index = 1; index <= 4; index++) {
-          flaskArr[index] = renderFlask(index);
-      }
+        $(selectedInfo).html('Currently selected flasks: ');
+        selectedFlasks = [];
+        for (let index = 1; index <= 4; index++) {
+            flaskArr[index] = renderFlask(index);
+        }
       };
 
       setupGame();
@@ -127,79 +120,77 @@
 
       var tweens = [];
       var renderPour = function (flask, index){
-      // Using a Motion Guide
-      curX = flask.x;
-      curY = flask.y;
-      // var emptImage = new Image();
-      // emptImage.src = emptyFlaskPath(flask.id);
-      var emptImage = getEmptFlask(flask.id);
-      emptImage.width = 512;
-      emptImage.height = 512;
-      createjs.Tween.get(flask)
-          .wait(2000*(index))
-          .to({x:100, y:90, rotation:-100}, 700, createjs.Ease.quadOut)
-          .to({image: emptImage}, 700)
-          .to({x:curX, y:curY, rotation:0}, 700, createjs.Ease.quadOut);
-      flask.setBounds(0,0,512,512)
+        // Using a Motion Guide
+        curX = flask.x;
+        curY = flask.y;
+        // var emptImage = new Image();
+        // emptImage.src = emptyFlaskPath(flask.id);
+        var emptImage = getEmptFlask(flask.id);
+        createjs.Tween.get(flask)
+            .wait(2000*(index))
+            .to({x:100, y:90, rotation:-100}, 700, createjs.Ease.quadOut)
+            .to({image: emptImage}, 700)
+            .to({x:curX, y:curY, rotation:0}, 700, createjs.Ease.quadOut);
+        flask.setBounds(0,0,512,512)
       };
 
       var height = [-30, -60, -90, -120];
       // Liquid animation
       var renderBeaker = function (selectedFlasks, index){
-      if (index >= selectedFlasks.length) {
-          return;
-      }
-      var beTween = createjs.Tween.get(cmd)
-          .wait(700)
-          .to({x:32, y:-1, w:101, h:height[index]}, 700, createjs.Ease.quadOut)
-          .wait(700)
-          .call(handleComplete);
-      function handleComplete(){
-          renderBeaker(selectedFlasks, index+1);
-      }
+        if (index >= selectedFlasks.length) {
+            return;
+        }
+        var beTween = createjs.Tween.get(cmd)
+            .wait(700)
+            .to({x:32, y:-1, w:101, h:height[index]}, 700, createjs.Ease.quadOut)
+            .wait(700)
+            .call(handleComplete);
+        function handleComplete(){
+            renderBeaker(selectedFlasks, index+1);
+        }
       };
 
       var gameBtn = document.getElementById("gameBtn");
       gameBtn.addEventListener("click", function(){
       // Confirm
-      if ( gameBtn.textContent === "Confirm Selection" ) {
-          // Pouring animation
-          for (let index = 0; index < selectedFlasks.length; index++) {
-          renderPour(flaskArr[selectedFlasks[index]], index);
-          }
-          // Recording answer
-          document.getElementById('gameInput').value += selectedFlasks + '; ';
-          renderBeaker(selectedFlasks,0);
-          if ( selectedFlasks.includes(1) && selectedFlasks.includes(3) && !selectedFlasks.includes(2)){
-          console.log("Bingo!");
-          var filter = new createjs.ColorFilter(1,1,1,1);
-          shape.filters = [filter];
-          createjs.Tween.get(filter)
-              .wait(2100*selectedFlasks.length)
-              .to({redOffset:255, greenMultiplier:0.5, blueMultiplier:1}, 700, createjs.Ease.linear);
-          
-          }
-          gameBtn.textContent = "Reset";
-          // Making flasks unresponsive
-          flaskArr.forEach(function(flask){
-          flask.removeAllEventListeners();
-          });
-      // Reset
-      } else if ( gameBtn.textContent === "Reset" ) {
-          gameBtn.textContent = "Confirm Selection";
-          // Clear all flasks
-          flaskArr.forEach(function(flask){
-          stage.removeChild(flask);
-          });
+        if ( gameBtn.textContent === "Confirm Selection" ) {
+            // Pouring animation
+            for (let index = 0; index < selectedFlasks.length; index++) {
+            renderPour(flaskArr[selectedFlasks[index]], index);
+            }
+            // Recording answer
+            document.getElementById('gameInput').value += selectedFlasks + '; ';
+            renderBeaker(selectedFlasks,0);
+            if ( selectedFlasks.includes(1) && selectedFlasks.includes(3) && !selectedFlasks.includes(2)){
+            console.log("Bingo!");
+            var filter = new createjs.ColorFilter(1,1,1,1);
+            shape.filters = [filter];
+            createjs.Tween.get(filter)
+                .wait(2100*selectedFlasks.length)
+                .to({redOffset:255, greenMultiplier:0.5, blueMultiplier:1}, 700, createjs.Ease.linear);
+            
+            }
+            gameBtn.textContent = "Reset";
+            // Making flasks unresponsive
+            flaskArr.forEach(function(flask){
+            flask.removeAllEventListeners();
+            });
+        // Reset
+        } else if ( gameBtn.textContent === "Reset" ) {
+            gameBtn.textContent = "Confirm Selection";
+            // Clear all flasks
+            flaskArr.forEach(function(flask){
+            stage.removeChild(flask);
+            });
 
-          createjs.Tween.get(cmd)
-          .to({x:32, y:-1, w:101, h:0}, 150, createjs.Ease.quadOut)
-          
-          var filter = new createjs.ColorFilter(0,0,0,1, 0,255,255,0);
-          shape.filters = [filter];
+            createjs.Tween.get(cmd)
+            .to({x:32, y:-1, w:101, h:0}, 150, createjs.Ease.quadOut)
+            
+            var filter = new createjs.ColorFilter(0,0,0,1, 0,255,255,0);
+            shape.filters = [filter];
 
-          setupGame();
-      }
+            setupGame();
+        }
       });
 
       createjs.Ticker.setFPS(60);

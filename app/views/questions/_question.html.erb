@@ -1,6 +1,6 @@
 <!-- needed in surveys/show -->
 <div class="form-group">
-  <label><%= question.description %></label><br>
+  <div><%= markdown(question.description) %></div><br>
 
   <% if question.q_type == 'multiple_choice' %>
     <% unless question.settings == 'null' %>

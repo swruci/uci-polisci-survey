@@ -30,7 +30,9 @@
       </div>
 
     </div>
-    <div class="collapse" id="collapse-<%= survey.id %>"><div class="card-body"><%= survey.description %></div></div>
+    <div class="collapse" id="collapse-<%= survey.id %>">
+      <div class="card-body"><%= markdown(survey.description) %></div>
+    </div>
   <% end %>
 </div>
 

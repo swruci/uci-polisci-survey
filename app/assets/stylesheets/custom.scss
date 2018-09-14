@@ -13,3 +13,15 @@
   margin-top: 45px;
   @include box_sizing;
 }
+
+.input-group-prepend {
+  flex-wrap: wrap;
+
+  .btn-outline-dark {
+    margin-left: 0 !important;
+    margin-bottom: -1px;
+    &:not(:last-child) {
+      margin-right: -1px;
+      }
+  }
+}
