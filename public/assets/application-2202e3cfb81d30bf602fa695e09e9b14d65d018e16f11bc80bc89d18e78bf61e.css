@@ -1,0 +1,214 @@
+/* miscellaneous */
+/* line 9, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/custom.scss */
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 17, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/custom.scss */
+.input-group-prepend {
+  flex-wrap: wrap;
+}
+/* line 20, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/custom.scss */
+.input-group-prepend .btn-outline-dark {
+  margin-left: 0 !important;
+  margin-bottom: -1px;
+}
+/* line 23, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/custom.scss */
+.input-group-prepend .btn-outline-dark:not(:last-child) {
+  margin-right: -1px;
+}
+/* line 6, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/surveys.scss */
+.collapse + .list-group-item {
+  border-top: 0;
+}
+/* line 10, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/surveys.scss */
+.collapse.show {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* line 15, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/surveys.scss */
+.game-input {
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+/* line 18, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+body {
+  padding: 20px;
+  line-height: 115%;
+  font-family: "Times New Roman", "serif";
+  background: #fefefe;
+}
+
+/* line 25, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.hidden {
+  display: none;
+}
+
+/* line 29, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.fade_button i {
+  opacity: 0;
+  font-size: 32px;
+  transition: opacity .5s ease;
+}
+
+/* line 35, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.fade_button:hover i {
+  opacity: 1;
+}
+
+/* line 39, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.list-group-flush .list-group-item {
+  background-color: transparent;
+}
+
+/* line 44, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.surveys .survey {
+  cursor: pointer;
+}
+
+/* line 49, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.carousel-indicators {
+  bottom: -40px !important;
+}
+
+/* line 54, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.list-group-item:hover {
+  background-color: #ededed !important;
+}
+
+/* line 59, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.carousel-indicators li {
+  background-color: #999 !important;
+  background-color: rgba(70, 70, 70, 0.25) !important;
+}
+
+/* line 64, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.carousel-indicators .active {
+  background-color: #444 !important;
+}
+
+/* line 67, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+canvas {
+  margin: 0px auto;
+  display: block;
+}
+
+/* line 72, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.fixed_width {
+  width: 160px !important;
+}
+
+/* line 75, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.survey-container {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 630px) {
+  /* line 80, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+  .survey-container {
+    max-width: 500px;
+  }
+}
+@media screen and (min-width: 880px) {
+  /* line 85, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+  .survey-container {
+    max-width: 800px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  /* line 90, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+  .survey-container {
+    max-width: 850px;
+  }
+}
+/* line 94, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.fl-basis-100 {
+  flex-basis: 100% !important;
+}
+
+/* line 98, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.question-desc {
+  font-size: 19px;
+  line-height: 180%;
+  font-family: "Times New Roman", "serif";
+  margin-bottom: 24px;
+  color: #757575;
+}
+
+/* line 106, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.form-button-group {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+/* line 111, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.form-button-container {
+  margin-right: 5px;
+  flex: 1;
+}
+
+/* line 116, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.form-button-container label {
+  padding: 30px 20px 30px 40px;
+  position: relative;
+  background: rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: background 1.0s ease-in-out;
+  display: block;
+}
+
+/* line 125, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.form-button-container label span {
+  font-family: Poppins,Arial,sans-serif;
+  font-size: 18px;
+}
+
+/* line 130, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.form-button-container label span::before {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  margin-top: 3px;
+  width: 17px;
+  height: 17px;
+  left: 10px;
+  vertical-align: middle;
+  border-radius: 100%;
+  border: 2px solid #9b9b9b;
+  border-image: initial;
+  background: 0 0 !important;
+  animation: background .2s forwards, border .2s forwards;
+}
+
+/* line 146, D:/WorkSpace/uci-polisci-survey/app/assets/stylesheets/application.scss */
+.form-button-container input:checked ~ label span::before {
+  border: 2px solid #007dff;
+  background: #007dff !important;
+  box-shadow: inset 0 0 0 3px #fff;
+}
