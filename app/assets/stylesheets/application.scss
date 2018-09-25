@@ -16,14 +16,13 @@
 
 body {
   padding: 20px;
+  line-height: 115%;
+  font-family: "Times New Roman", "serif";
+  background: rgb(254,254,254);
 }
 
 .hidden {
   display: none;
-}
-
-.form-group {
-  max-width: 800px;
 }
 
 .fade_button i{
@@ -64,7 +63,87 @@ body {
 .carousel-indicators .active {
   background-color: #444 !important;
 }
+canvas {
+  margin: 0px auto;
+  display: block;
+}
 
 .fixed_width {
   width: 160px !important;
+}
+.survey-container {
+  max-width: 90%;
+  margin: 0 auto;
+}
+@media screen and (min-width: 630px) {
+  .survey-container {
+    max-width: 500px;
+  }
+}
+@media screen and (min-width: 880px) {
+  .survey-container {
+    max-width: 800px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .survey-container {
+    max-width: 850px;
+  }
+}
+.fl-basis-100 {
+  flex-basis: 100% !important;
+}
+
+.question-desc {
+  font-size: 19px;
+  line-height: 180%;
+  font-family: "Times New Roman", "serif";
+  margin-bottom: 24px;
+  color: rgb(117, 117, 117);
+}
+
+.form-button-group {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.form-button-container {
+  margin-right: 5px;
+  flex: 1;
+}
+
+.form-button-container label {
+  padding: 30px 20px 30px 40px;
+  position: relative;
+  background: rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: background 1.0s ease-in-out;
+  display: block;
+}
+
+.form-button-container label span {
+  font-family: Poppins,Arial,sans-serif;
+  font-size: 18px;
+}
+
+.form-button-container label span::before {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  margin-top: 3px;
+  width: 17px;
+  height: 17px;
+  left: 10px;
+  vertical-align: middle;
+  border-radius: 100%;
+  border: 2px solid #9b9b9b;
+  border-image: initial;
+  background: 0 0!important;
+  animation: background .2s forwards, border .2s forwards;
+}
+
+.form-button-container input:checked ~ label span::before {
+  border: 2px solid #007dff;
+  background: #007dff!important;
+  box-shadow: inset 0 0 0 3px #fff;
 }

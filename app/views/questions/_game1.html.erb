@@ -1,19 +1,60 @@
-<div>
+<!-- Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="successModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Congratulations!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>You have discovered how to make purple! Now there is one more part of this problem. We want you to <strong>keep experimenting</strong> and try to figure out what <strong>each flask of liquid does</strong> in terms of the reaction you just discovered. Click Continue to proceed.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="continueBtn">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="position: relative">
   <div>
     <h5 id='selectedInfo'>Currently selected flasks: </h5>
   </div>
+  <input type="text" name="answers[<%= question.id %>]" id ="gameInput" minlength="1" required class="game-input">
   <canvas id='canvas'></canvas>
   <div>
     <div class="text-center">
-      <button type="button" class="btn btn-secondary fixed_width" id="gameBtn">Confirm Selection</button>
+      <button type="button" class="btn btn-primary fixed_width" id="gameBtn">Confirm Selection</button>
     </div>
-    <input type="text" name="answers[<%= question.id %>]"
-            value="" id ="gameInput" required hidden>
   </div>
+
+  <br/>
+  <input type="hidden" name="qid" value="<%= question.id %>">
+  <div class="question-desc additional">
+    <p>In this experiment, what does the liquid in Bottle 1 do alone or interaction with the other liquids?</p>
+    <textarea class="form-control" name="q1" rows="4" required></textarea>
+  </div>
+  <div class="question-desc additional">
+    <p>In this experiment, what does the liquid in Bottle 2 do alone or interaction with the other liquids?</p>
+    <textarea class="form-control" name="q2" rows="4" required></textarea>
+  </div>
+  <div class="question-desc additional">
+    <p>In this experiment, what does the liquid in Bottle 2 do alone or interaction with the other liquids?</p>
+    <textarea class="form-control" name="q3" rows="4" required></textarea>
+  </div>
+  <div class="question-desc additional">
+    <p>In this experiment, what does the liquid in Bottle 2 do alone or interaction with the other liquids?</p>
+    <textarea class="form-control" name="q4" rows="4" required></textarea>
+  </div>
+  
 </div>
 
 <% content_for :scripts do %>
   <script>
+
+    $(".additional").hide();
 
     var stage = new createjs.Stage("canvas");
     stage.canvas.width = 600;
@@ -80,21 +121,21 @@
         //   }, 100);
 
         flask.addEventListener('click', function(e) {
-            if (selectedFlasks.includes(flask.id)) {
-            // Unselect the flask if selected
-            selectedFlasks.splice(selectedFlasks.indexOf(flask.id), 1);
-            flask.alpha = 0.6;
-            } else {
-            // Select the flask
-            selectedFlasks.push(flask.id);
-            flask.alpha = 1;
-            }
-            var info = 'Currently selected flasks: ';
-            selectedFlasks.forEach(function(flaskId){
-            info += 'Flask # '+ flaskId +'\n';
-            });
-            $(selectedInfo).html(info);
-            stage.update();
+          if (selectedFlasks.includes(flask.id)) {
+          // Unselect the flask if selected
+          selectedFlasks.splice(selectedFlasks.indexOf(flask.id), 1);
+          flask.alpha = 0.6;
+          } else {
+          // Select the flask
+          selectedFlasks.push(flask.id);
+          flask.alpha = 1;
+          }
+          var info = 'Currently selected flasks: ';
+          selectedFlasks.forEach(function(flaskId){
+          info += 'Flask # '+ flaskId +'\n';
+          });
+          $(selectedInfo).html(info);
+          stage.update();
         });
         flask.cursor = 'pointer';
         stage.addChild(flask);
@@ -131,10 +172,10 @@
         emptImage.width = 512;
         emptImage.height = 512;
         createjs.Tween.get(flask)
-            .wait(2000*(index))
-            .to({x:100, y:90, rotation:-100}, 700, createjs.Ease.quadOut)
-            .to({image: emptImage}, 700)
-            .to({x:curX, y:curY, rotation:0}, 700, createjs.Ease.quadOut);
+          .wait(2000*(index))
+          .to({x:100, y:90, rotation:-100}, 700, createjs.Ease.quadOut)
+          .to({image: emptImage}, 700)
+          .to({x:curX, y:curY, rotation:0}, 700, createjs.Ease.quadOut);
         flask.setBounds(0,0,512,512)
       };
 
@@ -145,55 +186,86 @@
             return;
         }
         var beTween = createjs.Tween.get(cmd)
-            .wait(700)
-            .to({x:32, y:-1, w:101, h:height[index]}, 700, createjs.Ease.quadOut)
-            .wait(700)
-            .call(handleComplete);
+          .wait(700)
+          .to({x:32, y:-1, w:101, h:height[index]}, 700, createjs.Ease.quadOut)
+          .wait(700)
+          .call(handleComplete);
         function handleComplete(){
-            renderBeaker(selectedFlasks, index+1);
+          renderBeaker(selectedFlasks, index+1);
         }
       };
+
+info=`You have discovered how to make purple! We want you to <strong>keep experimenting</strong> and try to figure out what role each liquid plays in the reaction you just discovered.<br>
+<strong>The Problem</strong>:  Find out what <strong>each flask of liquid does</strong>. For example, a liquid can be a necessary for the reaction to happen, or it can prevent the reaction from happening, or some other effects. It is up to you to find out!<br>
+<strong>To Solve the Problem</strong>: You need to try pouring different liquids from one or more of the small bottles in to the large beaker. You can try different liquids or combinations of liquids.<br><br><br>
+To pour liquid from one or more of the small bottles: click on the bottle or bottles you want to pour, then click on the button that says “Confirm Selection”. The liquid from the bottles you chose will then pour automatically.<br>
+To try a different liquid or combination of liquids, push the “Reset” button.  The large beaker will empty and you can try a new liquid or combination of liquids.<br>
+The problem is a little difficult.  Don’t worry if you cannot solve it.  When you are done, push the “Submit” button to proceed to the next part of the survey.  GOOD LUCK!"`
+
+      var proceedPartTwo = function() {
+        $("#successModal").modal();
+      }
+
+      $("#continueBtn").click(function(){
+        $("#desc_id_10").children(0)[0].innerHTML = info;
+
+        gameBtn.textContent = "Confirm Selection";
+        // Clear all flasks
+        flaskArr.forEach(function(flask){
+          stage.removeChild(flask);
+        });
+
+        createjs.Tween.get(cmd)
+        .to({x:32, y:-1, w:101, h:0}, 150, createjs.Ease.quadOut)
+        
+        var filter = new createjs.ColorFilter(0,0,0,1, 0,255,255,0);
+        shape.filters = [filter];
+
+        setupGame();
+
+        $(".additional").show();
+      });
 
       var gameBtn = document.getElementById("gameBtn");
       gameBtn.addEventListener("click", function(){
       // Confirm
         if ( gameBtn.textContent === "Confirm Selection" ) {
-            // Pouring animation
-            for (let index = 0; index < selectedFlasks.length; index++) {
+          // Pouring animation
+          for (let index = 0; index < selectedFlasks.length; index++) {
             renderPour(flaskArr[selectedFlasks[index]], index);
-            }
-            // Recording answer
-            document.getElementById('gameInput').value += selectedFlasks + '; ';
-            renderBeaker(selectedFlasks,0);
-            if ( selectedFlasks.includes(1) && selectedFlasks.includes(3) && !selectedFlasks.includes(2)){
+          }
+          // Recording answer
+          document.getElementById('gameInput').value += selectedFlasks + '; ';
+          renderBeaker(selectedFlasks,0);
+          if ( selectedFlasks.includes(1) && selectedFlasks.includes(3) && !selectedFlasks.includes(2)){
             console.log("Bingo!");
             var filter = new createjs.ColorFilter(1,1,1,1);
             shape.filters = [filter];
             createjs.Tween.get(filter)
-                .wait(2100*selectedFlasks.length)
-                .to({redOffset:255, greenMultiplier:0.5, blueMultiplier:1}, 700, createjs.Ease.linear);
-            
-            }
-            gameBtn.textContent = "Reset";
-            // Making flasks unresponsive
-            flaskArr.forEach(function(flask){
+              .wait(2100*selectedFlasks.length)
+              .to({redOffset:255, greenMultiplier:0.5, blueMultiplier:1}, 700, createjs.Ease.linear);
+            setTimeout(proceedPartTwo, 2100*selectedFlasks.length+700+1500);
+          }
+          gameBtn.textContent = "Reset";
+          // Making flasks unresponsive
+          flaskArr.forEach(function(flask){
             flask.removeAllEventListeners();
-            });
+          });
         // Reset
         } else if ( gameBtn.textContent === "Reset" ) {
-            gameBtn.textContent = "Confirm Selection";
-            // Clear all flasks
-            flaskArr.forEach(function(flask){
+          gameBtn.textContent = "Confirm Selection";
+          // Clear all flasks
+          flaskArr.forEach(function(flask){
             stage.removeChild(flask);
-            });
+          });
 
-            createjs.Tween.get(cmd)
-            .to({x:32, y:-1, w:101, h:0}, 150, createjs.Ease.quadOut)
-            
-            var filter = new createjs.ColorFilter(0,0,0,1, 0,255,255,0);
-            shape.filters = [filter];
+          createjs.Tween.get(cmd)
+          .to({x:32, y:-1, w:101, h:0}, 150, createjs.Ease.quadOut)
+          
+          var filter = new createjs.ColorFilter(0,0,0,1, 0,255,255,0);
+          shape.filters = [filter];
 
-            setupGame();
+          setupGame();
         }
       });
 

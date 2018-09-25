@@ -10,6 +10,12 @@ class SurveysController < ApplicationController
   # GET /surveys/1
   # GET /surveys/1.json
   def show
+    @ran1 = ''
+    @ran2 = ''
+    unless params['ran_1'].blank? && params['ran_2'].blank?
+      @ran1 = ("%f" % params['ran_1'].gsub(' ','+')).sub(/\.?0*$/, "")
+      @ran2 = ("%f" % params['ran_2'].gsub(' ','+')).sub(/\.?0*$/, "")
+    end
   end
 
   # GET /surveys/new

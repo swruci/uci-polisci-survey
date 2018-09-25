@@ -1,32 +1,34 @@
 <!-- needed in surveys/show -->
 <div class="form-group">
-  <div><%= markdown(question.description) %></div><br>
+  <div class="question-desc" id="desc_id_<%= question.id %>"><%= markdown(question.description) %></div>
 
   <% if question.q_type == 'multiple_choice' %>
     <% unless question.settings == 'null' %>
+    <div class="form-button-group">
       <% question.settings.each do |key, value| %>
-
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="answers[<%= question.id %>]"
-          value="<%= key+" : "+value %>" required/>
-          <label class="form-check-label" for="option-button-<%= key %>">
-            <%= value %>
+        <div class="form-button-container fl-basis-100">
+          <input type="radio" name="answers[<%= question.id %>]"
+          value="<%= key+" : "+value %>" required class="hidden" id="option-button-<%= key.camelize %>" />
+          <label for="option-button-<%= key.camelize %>">
+            <span><%= value %></span>
           </label>
         </div>
       <% end %>
+      </div>
     <% end %>
 
   <% elsif question.q_type == 'button_group' %>
     <% unless question.settings == 'null' %>
-      <div class="input-group" data-toggle="buttons">
-        <div class="input-group-prepend">
-        <% question.settings.each do |key, value| %>
-          <button type="button" class="btn btn-outline-dark">
-            <input type="radio" name="answers[<%= question.id %>]"
-            value="<%= key+" : "+value %>" required hidden> <%= value %>
-          </button>
-        <% end %>
+    <div class="form-button-group">
+      <% question.settings.each do |key, value| %>
+        <div class="form-button-container">
+          <input type="radio" name="answers[<%= question.id %>]"
+          value="<%= key+" : "+value %>" required class="hidden" id="option-button-<%= key.camelize %>" />
+          <label for="option-button-<%= key.camelize %>">
+            <span><%= value %></span>
+          </label>
         </div>
+        <% end %>
       </div>
     <% end %>
 
@@ -47,3 +49,29 @@
 
   <br>
 </div>
+
+<script>
+  setInterval(function() {
+    var groups = {};
+    var buttons =  document.querySelectorAll('.form-button-container label');
+    for (var i in buttons) {
+      if (!buttons.hasOwnProperty(i)) continue;
+      var el = buttons[i];
+      var top = el.getBoundingClientRect().top;
+      if (top === 0) continue;
+      if (!groups[top]) groups[top] = [];
+      groups[top].push(el);
+    }
+
+    for (var i in groups) {
+      if (!groups.hasOwnProperty(i)) continue;
+      var group = groups[i];
+      var maxHeight = -1;
+      for (var j in group) maxHeight = Math.max(maxHeight, group[j].offsetHeight);
+      for (var j in group) {
+        if (group[j].style.height === maxHeight + 'px') continue;
+        group[j].style.height = maxHeight + 'px';
+      }
+    }
+  }, 500);
+</script>

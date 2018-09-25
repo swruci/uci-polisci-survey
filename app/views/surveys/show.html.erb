@@ -1,3 +1,4 @@
+<!-- 
 <div>
   <h4 class="mb-3">Name:</h4>
   <div class="mb-3"><%= @survey.name %></div>
@@ -7,14 +8,16 @@
   <h4 class="mb-3">Description:</h4>
   <div class="mb-3"><%= markdown(@survey.description) %></div>
 </div>
+ -->
 
 <%-# render 'render_question_list', survey: @survey -%>
 
-<br><br><br>
+<br><br>
 
-<form role="form" action="<%= survey_survey_responses_path(@survey) %>"
+<form role="form" action="<%= survey_survey_responses_path(@survey) %>?ran_1=<%=@ran1%>&ran_2=<%=@ran2%>"
   accept-charset="UTF-8" method="post" id="surveyForm">
   <input type="hidden" name="id" value="<%= @survey.id %>">
+  <input type="hidden" name="participant" value="<%= @ran1 + '+' + @ran2 %>">
 
   <div id="carouselInForm" class="carousel slide" data-interval="false">
     <ol class="carousel-indicators">
@@ -38,7 +41,7 @@
       <% end %>
     </div>
     <div class="text-center" id="submit-container">
-      <input type="submit" value="Submit" class="btn btn-secondary"
+      <input type="submit" value="Submit" class="btn btn-primary"
       data-disable_with="Submitting..."/>
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
     </div>
@@ -62,6 +65,23 @@
     </div>
   </div>
 </form>
+
+<style>
+  .material-icons {
+    vertical-align: middle;
+  }
+  .nav-btn {
+      transition: background .3s;
+      background-color: #007dff;
+      color: #fff;
+      padding: 7px 16px;
+      margin-bottom: 10px;
+  }
+  .nav-btn:hover {
+    background: #0071e6;
+    color: #fff;
+  }
+</style>
 
 <% if user_signed_in? %>
 <%= link_to 'Edit', edit_survey_path(@survey) %> |
@@ -91,9 +111,16 @@
   var submitContainer = $('#submit-container');
   var prevBtn = $('[data-slide="prev"]');
   var nextBtn = $('[data-slide="next"]');
+  var carouselIndicators = $('.carousel-indicators');
 
   prevBtn.hide();
   submitContainer.hide();
+
+  if (<%= @survey.pages.length %> === 1) {
+    nextBtn.hide();
+    carouselIndicators.hide();
+    submitContainer.show();
+  }
 
   var validator = $('form').validate({
     showErrors: function (errorMap, errorList) {
@@ -103,6 +130,8 @@
 
       $.each(errorList, function (index, error) {
         var ele = $(error.element);
+        // if (ele.hasClass('game-input')) return true;
+        
         //Instead of referencing the popover directly, I use the element that is the target for the popover
 
         ele.popover({
@@ -110,7 +139,7 @@
           placement: "top",
           content: error.message,
         });
-
+        
         return ele.popover("show");
       });
     }

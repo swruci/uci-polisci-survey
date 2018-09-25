@@ -5,6 +5,7 @@
   <ul>
     <% response.answers.each do |answer| %>
       <li>
+        <div>Participant: <%= response.participant %></div>
         <div>Q_id: <%= answer.question.id %></div>
         <div><%= answer.description %></div>
         <div><%= answer.data %></div>
