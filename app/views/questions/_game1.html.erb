@@ -207,7 +207,7 @@ The problem is a little difficult.  Don’t worry if you cannot solve it.  When 
       }
 
       $("#continueBtn").click(function(){
-        $("#desc_id_10").children(0)[0].innerHTML = info;
+        $("#desc_id_<%=question.id%>").children(0)[0].innerHTML = info;
 
         gameBtn.textContent = "Confirm Selection";
         // Clear all flasks
