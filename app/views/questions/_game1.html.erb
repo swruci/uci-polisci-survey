@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>You have discovered how to make purple! Now there is one more part of this problem. We want you to <strong>keep experimenting</strong> and try to figure out what <strong>each flask of liquid does</strong> in terms of the reaction you just discovered. Click Continue to proceed.</p>
+        <p>You have discovered how to make purple! Now there is one more part of this problem. Click Continue to proceed.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal" id="continueBtn">Continue</button>
@@ -55,6 +55,7 @@
   <script>
 
     $(".additional").hide();
+    $("#submit_btn").prop('value', 'Quit');
 
     var stage = new createjs.Stage("canvas");
     stage.canvas.width = 600;
@@ -195,12 +196,9 @@
         }
       };
 
-info=`You have discovered how to make purple! We want you to <strong>keep experimenting</strong> and try to figure out what role each liquid plays in the reaction you just discovered.<br>
-<strong>The Problem</strong>:  Find out what <strong>each flask of liquid does</strong>. For example, a liquid can be a necessary for the reaction to happen, or it can prevent the reaction from happening, or some other effects. It is up to you to find out!<br>
-<strong>To Solve the Problem</strong>: You need to try pouring different liquids from one or more of the small bottles in to the large beaker. You can try different liquids or combinations of liquids.<br><br><br>
-To pour liquid from one or more of the small bottles: click on the bottle or bottles you want to pour, then click on the button that says “Confirm Selection”. The liquid from the bottles you chose will then pour automatically.<br>
-To try a different liquid or combination of liquids, push the “Reset” button.  The large beaker will empty and you can try a new liquid or combination of liquids.<br>
-The problem is a little difficult.  Don’t worry if you cannot solve it.  When you are done, push the “Submit” button to proceed to the next part of the survey.  GOOD LUCK!"`
+info=`You have discovered how to make purple! We want you to <strong>keep experimenting</strong> and try to figure out what role each liquid plays in the reaction you just discovered.<br><br>
+<strong>The Problem</strong>:  Find out what <strong>each flask of liquid does</strong>. “You have found a particular combination of liquids that makes purple. But what do all the liquids do, either alone or in combination? It is up to you to find out!<br><br>
+<strong>To Solve the Problem</strong>: You need to try pouring different liquids from one or more of the small bottles in to the large beaker. You can try different liquids or combinations of liquids.When you are think that you discovered as much as you can about the liquids, please answer the four questions that follow below. When you are done push the “Continue” button.`
 
       var proceedPartTwo = function() {
         $("#successModal").modal();
@@ -208,6 +206,7 @@ The problem is a little difficult.  Don’t worry if you cannot solve it.  When 
 
       $("#continueBtn").click(function(){
         $("#desc_id_<%=question.id%>").children(0)[0].innerHTML = info;
+        $("#submit_btn").prop('value', 'Continue');
 
         gameBtn.textContent = "Confirm Selection";
         // Clear all flasks
