@@ -86,7 +86,7 @@
 <% if user_signed_in? %>
 <%= link_to 'Edit', edit_survey_path(@survey) %> |
 <% end %>
-<%= link_to 'Exit', surveys_path %>
+<%= link_to 'Exit', surveys_path, id:"exitLink" %>
 
 <% content_for :scripts do %>
   <script>
