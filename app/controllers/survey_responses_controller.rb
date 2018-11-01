@@ -6,7 +6,7 @@ class SurveyResponsesController < ApplicationController
         
     respond_to do |format|
       format.html
-      format.csv { send_data @responses.to_csv, filename: "responses-#{Date.today}.csv" }
+      format.json  { render :json => @responses.to_json }
     end
   end
 
