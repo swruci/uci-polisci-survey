@@ -6,7 +6,7 @@ class SurveyResponsesController < ApplicationController
         
     respond_to do |format|
       format.html
-      format.json  { render :json => @responses.to_json }
+      format.json  { render :json => @responses.to_json(:include => :answers) }
     end
   end
 
