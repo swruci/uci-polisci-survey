@@ -3,6 +3,11 @@ class SurveyResponsesController < ApplicationController
 
   def index
     @responses = @survey.responses.all
+        
+    respond_to do |format|
+      format.html
+      format.csv { send_data @responses.to_csv, filename: "responses-#{Date.today}.csv" }
+    end
   end
 
   def create
