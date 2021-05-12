@@ -7,7 +7,7 @@ default: &default
   host: 127.0.0.1
   port: 5432
   username: postgres
-  password: 61319203cxy
+  password: 6f96b86273c64d2cbeb093c02ca6a0c4
 
 development:
   <<: *default
